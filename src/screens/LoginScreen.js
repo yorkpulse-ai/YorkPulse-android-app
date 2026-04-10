@@ -31,11 +31,10 @@ export default function LoginScreen({ navigation }) {
     try {
       const { ok, data } = await api.login(payload);
 
-      if (ok && data.ok) {
-        await saveUser({ username: data.username });
-        // 跳转到主页（之后配置）
-        Alert.alert('Welcome!', `Hello, ${data.username}`);
-      } else {
+     if (ok && data.ok) {
+       await saveUser({ username: data.username });
+       navigation.replace('Home');
+     } else {
         setError(data.message || 'Login failed.');
         if (data.ban_reason) {
           setError(`Account banned: ${data.ban_reason}`);
